@@ -49,7 +49,8 @@ public class MyPlayerBehaviour : MonoBehaviour
         //weapon switching
         if (Input.GetButtonDown("Fire2"))
         {
-            ChangeWeaponIndex(selectedWeaponIndex + 1);
+            ChangeWeaponIndex(selectedWeaponIndex +1);
+            
         }
     }
 
@@ -60,8 +61,8 @@ public class MyPlayerBehaviour : MonoBehaviour
         selectedWeaponIndex = index;
         //If it's gone too far, loop back around
         //if (selectedWeaponIndex >= weapons.Count)
-        if (selectedWeaponIndex >= weapons.Length)
-        {
+        if (selectedWeaponIndex >= indexs) { 
+       
             selectedWeaponIndex = 0;
         }
 
@@ -69,7 +70,7 @@ public class MyPlayerBehaviour : MonoBehaviour
         for (
             int i = 0; //Declare a variable to keep track of how many iterations we've done
             //i < weapons.Count; 
-            i < weapons.Length;//Set a limit for how high this variable can go
+            i < indexs;//Set a limit for how high this variable can go
             i++ //Run this after each time we iterate - increase the iteration count
         )
         {
@@ -93,8 +94,16 @@ public class MyPlayerBehaviour : MonoBehaviour
         {
             //Add it to our internal list
             //weapons.Add(theirWeapon);
-           
-            weapons[indexs] = theirWeapon;
+            if (weapons[indexs]==null)
+            {
+                weapons[indexs] = theirWeapon;
+            }
+            else if (weapons[indexs] != null)
+            {
+                indexs++;
+                weapons[indexs] = theirWeapon;
+            }
+            
       
             //Move it to our location
             theirWeapon.transform.position = transform.position;
@@ -105,11 +114,6 @@ public class MyPlayerBehaviour : MonoBehaviour
 
             //Select it!
            //ChangeWeaponIndex(weapons.Length - 1);
-            indexs++;
-            if (indexs == 6)
-            {
-                indexs = 0;
-            }
 
         }
     }
